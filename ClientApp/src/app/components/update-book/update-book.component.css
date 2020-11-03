@@ -1,0 +1,8 @@
+.update-book-container {
+    padding: 0 20% 0 20%;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}

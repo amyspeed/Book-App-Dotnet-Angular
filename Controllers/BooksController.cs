@@ -17,7 +17,7 @@ namespace Book_App.Controllers
         {
             _service.AddBook(book);
 
-            return Ok("Added");
+            return Ok();
         }
 
         [HttpGet]

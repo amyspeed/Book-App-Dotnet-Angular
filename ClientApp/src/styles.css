@@ -9,8 +9,20 @@ code {
   color: #e01a76;
 }
 
+.btn {
+ margin-right: 2px;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.body-wrapper {
+  padding: 0 20px 0 20px;
+}
+
+a {
+  cursor: pointer;
 }
