@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,11 @@ import { Injectable } from '@angular/core';
 })
 export class BookService {
 
-  constructor() { }
+  _baseUrl: string = "api/books";
+
+  constructor(private http: HttpClient) { }
+
+  getAllBooks() {
+    return this.http.get<Book[]>(this._baseUrl);
+  }
 }
