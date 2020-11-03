@@ -11,15 +11,16 @@ import { BookService } from 'src/app/services/book.service';
 export class NewBookComponent implements OnInit {
 
   addBookForm: FormGroup;
+  showError: Boolean = false;
 
   constructor(private service: BookService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.addBookForm = this.formBuilder.group({
       id: [Math.floor(Math.random() * 1000)],
-      title: ["", Validators.required],
-      author: ["", Validators.required],
-      description: ["", Validators.compose([Validators.required, Validators.minLength(30)])],
+      title: [null, Validators.required],
+      author: [null, Validators.required],
+      description: [null, Validators.compose([Validators.required, Validators.minLength(30)])],
       rate: [null],
       dateStart: [null],
       dateRead: [null]
@@ -29,6 +30,9 @@ export class NewBookComponent implements OnInit {
   onSubmit() {
     this.service.addBook(this.addBookForm.value).subscribe(data => {
       this.router.navigate(["/books"]);
+    }, err => {
+      this.showError = true;
+      console.log(err);
     })
   }
 
