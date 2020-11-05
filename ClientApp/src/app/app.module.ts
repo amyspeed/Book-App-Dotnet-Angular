@@ -12,7 +12,12 @@ import { DeleteBookComponent } from './components/delete-book/delete-book.compon
 import { NewBookComponent } from './components/new-book/new-book.component';
 import { ShowBookComponent } from './components/show-book/show-book.component';
 import { UpdateBookComponent } from './components/update-book/update-book.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { BookService } from './services/book.service';
+// import { StoreModule } from '@ngrx/store';
+// import { BookReducer } from './store/book.reducer';
+// import { EffectsModule } from '@ngrx/effects';
+// import { BookEffects } from 'src/app/store/book.effects';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,8 @@ import { BookService } from './services/book.service';
     DeleteBookComponent,
     NewBookComponent,
     ShowBookComponent,
-    UpdateBookComponent
+    UpdateBookComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,12 +38,14 @@ import { BookService } from './services/book.service';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'books', component: BooksComponent, pathMatch: 'full' },
-      { path: 'new-book', component: NewBookComponent, pathMatch: 'full'},
-      { path: 'update-book/:id', component: UpdateBookComponent},
-      { path: 'delete-book/:id', component: DeleteBookComponent},
-      { path: 'show-book/:id', component: ShowBookComponent},
-    ])
+      { path: 'books', component: BooksComponent },
+      { path: 'new-book', component: NewBookComponent },
+      { path: 'update-book/:id', component: UpdateBookComponent },
+      { path: 'delete-book/:id', component: DeleteBookComponent },
+      { path: 'show-book/:id', component: ShowBookComponent },
+    ]),
+    // StoreModule.forRoot({applicationState: BookReducer}),
+    // EffectsModule.forRoot([BookEffects]),
   ],
   providers: [BookService],
   bootstrap: [AppComponent]

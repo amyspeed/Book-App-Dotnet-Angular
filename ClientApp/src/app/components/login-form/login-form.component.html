@@ -1,0 +1,103 @@
+<div *ngIf="showLoginError" class="alert alert-danger">
+    Could not log in. Please try again or register.
+</div>
+<div *ngIf="showRegisterError" class="alert alert-danger">
+    Could not register new user. Please try again or log in.
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Login</h4>
+        <form [formGroup]="loginUserForm" (ngSubmit)="onSubmitLogin()">
+            <div class="form-group">
+                <label for="email" class="required">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="email" placeholder="Email" />
+            </div>
+            <div class="alert alert-danger" *ngIf="loginUserForm.controls['email'].invalid && 
+            (loginUserForm.controls['email'].dirty || loginUserForm.controls['email'].touched)">
+                <div *ngIf="loginUserForm.controls['email'].errors.required">
+                    Email is required
+                </div>
+                <div *ngIf="loginUserForm.controls['email'].errors.email">
+                    invalid Email format
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="required">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password"
+                    placeholder="Password" />
+            </div>
+            <div class="alert alert-danger" *ngIf="loginUserForm.controls['password'].invalid && 
+            (loginUserForm.controls['password'].dirty || loginUserForm.controls['password'].touched)">
+                <div *ngIf="loginUserForm.controls['password'].errors.required">
+                    Password is required
+                </div>
+                <div *ngIf="loginUserForm.controls['password'].errors.minlength">
+                    Password must be 10 chars
+                </div>
+            </div>
+
+            <button class="btn btn-success" type="submit" [disabled]="loginUserForm.pristine || loginUserForm.invalid">
+                Log In
+            </button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Register</h4>
+        <form [formGroup]="signupUserForm" (ngSubmit)="onSubmitRegister()">
+            <div class="form-group">
+                <label for="firstName" class="required">First Name</label>
+                <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                    placeholder="First Name" />
+            </div>
+            <div class="alert alert-danger" *ngIf="signupUserForm.controls['firstName'].invalid && 
+            (signupUserForm.controls['firstName'].dirty || signupUserForm.controls['firstName'].touched)">
+                <div *ngIf="signupUserForm.controls['firstName'].errors.required">
+                    First Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="required">Last Name</label>
+                <input formControlName="lastName" type="text" class="form-control" id="lastName"
+                    placeholder="Last Name" />
+            </div>
+            <div class="alert alert-danger" *ngIf="signupUserForm.controls['lastName'].invalid && 
+            (signupUserForm.controls['lastName'].dirty || signupUserForm.controls['lastName'].touched)">
+                <div *ngIf="signupUserForm.controls['lastName'].errors.required">
+                    Last Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="required">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="email" placeholder="Email" />
+            </div>
+            <div class="alert alert-danger" *ngIf="signupUserForm.controls['email'].invalid && 
+            (signupUserForm.controls['email'].dirty || signupUserForm.controls['email'].touched)">
+                <div *ngIf="signupUserForm.controls['email'].errors.required">
+                    Email is required
+                </div>
+                <div *ngIf="signupUserForm.controls['email'].errors.email">
+                    invalid Email format
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="required">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password"
+                    placeholder="Password" />
+            </div>
+            <div class="alert alert-danger" *ngIf="signupUserForm.controls['password'].invalid && 
+            (signupUserForm.controls['password'].dirty || signupUserForm.controls['password'].touched)">
+                <div *ngIf="signupUserForm.controls['password'].errors.required">
+                    Password is required
+                </div>
+                <div *ngIf="signupUserForm.controls['password'].errors.minlength">
+                    Password must be 10 chars
+                </div>
+            </div>
+
+            <button class="btn btn-success" type="submit" [disabled]="loginUserForm.pristine || loginUserForm.invalid">
+                Sign Up
+            </button>
+        </form>
+    </div>
+</div>

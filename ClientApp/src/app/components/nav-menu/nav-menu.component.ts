@@ -5,8 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent {
   isExpanded = false;
+
+  constructor() {}
 
   collapse() {
     this.isExpanded = false;
@@ -15,4 +18,5 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
 }
