@@ -1,8 +1,18 @@
-<div *ngIf="showLoginError" class="alert alert-danger">
-    Could not log in. Please try again or register.
+<div *ngIf="auth.showLoginError" class="alert alert-danger">
+    <h6>Could not log in. Please try again or register.</h6>
+    <ul *ngIf="auth.errors && auth.errors.length && auth.errors[0].description">
+        <li *ngFor="let error of auth.errors">
+            {{ error.description }}
+        </li>
+    </ul>
 </div>
-<div *ngIf="showRegisterError" class="alert alert-danger">
-    Could not register new user. Please try again or log in.
+<div *ngIf="auth.showRegisterError" class="alert alert-danger">
+    <h6>Could not register new user. Please try again or log in.</h6>
+    <ul *ngIf="auth.errors && auth.errors.length && auth.errors[0].description">
+        <li *ngFor="let error of auth.errors">
+            {{ error.description }}
+        </li>
+    </ul>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -95,7 +105,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-success" type="submit" [disabled]="loginUserForm.pristine || loginUserForm.invalid">
+            <button class="btn btn-success" type="submit" [disabled]="signupUserForm.pristine || signupUserForm.invalid">
                 Sign Up
             </button>
         </form>

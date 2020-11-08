@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -12,11 +12,8 @@ export class LoginFormComponent implements OnInit {
   loginUserForm: FormGroup;
   signupUserForm: FormGroup;
 
-  showLoginError: Boolean = false;
-  showRegisterError: Boolean = false;
-
   constructor(
-    // private auth: AuthService,
+    private auth: AuthService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -35,29 +32,36 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmitLogin() {
-    this.showRegisterError = false;
     console.log("login Clicked", this.loginUserForm.value);
-    this.showLoginError = true;
 
-    // this.auth.login(this.loginUserForm.value).subscribe(data => {
+    // this.auth.login(this.loginUserForm.value)
+    
+    // .subscribe(data => {
     //   console.log(data);
     // }, err => {
     //   this.showLoginError = true;
     //   console.log(err);
+
+    //   //this is an array of errors that we will map through in the HTML file
+    //   this.errors = err.error;
     // })
   }
 
   onSubmitRegister() {
-    this.showLoginError = false;
     console.log("register Clicked", this.signupUserForm.value);
-    this.showRegisterError = true;
 
-    // this.auth.register(this.signupUserForm.value).subscribe(data => {
+    this.auth.register(this.signupUserForm.value);
+    
+    // .subscribe(data => {
     //   console.log(data);
     // }, err => {
     //   this.showRegisterError = true;
     //   console.log(err);
+
+    //   //this is an array of errors that we will map through in the HTML file
+    //   this.errors = err.error;
+      
     // })
-  }
+   }
 
 }

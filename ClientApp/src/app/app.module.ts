@@ -14,6 +14,9 @@ import { ShowBookComponent } from './components/show-book/show-book.component';
 import { UpdateBookComponent } from './components/update-book/update-book.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { BookService } from './services/book.service';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth.interceptor';
+
 // import { StoreModule } from '@ngrx/store';
 // import { BookReducer } from './store/book.reducer';
 // import { EffectsModule } from '@ngrx/effects';
@@ -47,7 +50,11 @@ import { BookService } from './services/book.service';
     // StoreModule.forRoot({applicationState: BookReducer}),
     // EffectsModule.forRoot([BookEffects]),
   ],
-  providers: [BookService],
+  providers: [BookService, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

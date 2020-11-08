@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Book_App
 {
@@ -34,11 +37,31 @@ namespace Book_App
 
             services.AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase("user"));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the secret"));
+
+            services.AddAuthentication(opt =>
+           {
+               opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           }).AddJwtBearer(config =>
+           {
+               config.RequireHttpsMetadata = false;
+               config.SaveToken = true;
+               config.TokenValidationParameters = new TokenValidationParameters()
+               {
+                   IssuerSigningKey = signingKey,
+                   ValidateAudience = false,
+                   ValidateIssuer = false,
+                   ValidateIssuerSigningKey = true
+               };
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,6 +81,8 @@ namespace Book_App
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

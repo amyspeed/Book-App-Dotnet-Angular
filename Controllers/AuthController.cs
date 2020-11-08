@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Book_App.Data;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Book_App.Controllers
 {
@@ -32,7 +34,10 @@ namespace Book_App.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            var jwt = new JwtSecurityToken();
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the secret"));
+            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+
+            var jwt = new JwtSecurityToken(signingCredentials: signingCredentials);
             return Ok(new JwtSecurityTokenHandler().WriteToken(jwt));
         }
     }

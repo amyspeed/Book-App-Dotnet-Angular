@@ -1,5 +1,6 @@
 using System;
 using Book_App.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book_App.Controllers
@@ -13,6 +14,7 @@ namespace Book_App.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddBook([FromBody]Book book)
         {
@@ -32,6 +34,7 @@ namespace Book_App.Controllers
             
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllBooks() {
             var allBooks = _service.GetAllBooks();
@@ -39,6 +42,7 @@ namespace Book_App.Controllers
             return Ok(allBooks);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateBook(int id, [FromBody]Book book)
         {
@@ -46,6 +50,7 @@ namespace Book_App.Controllers
             return Ok(book);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
@@ -53,6 +58,7 @@ namespace Book_App.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetBookById(int id)
         {
